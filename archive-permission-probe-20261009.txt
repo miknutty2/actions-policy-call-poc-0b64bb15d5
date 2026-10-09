@@ -1,0 +1,1 @@
+Harmless archive authorization check. No secrets or functional changes.
