@@ -1,0 +1,20 @@
+name: Same-owner private npm package ACL canary
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test unrelated same-owner repository token
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s\n' "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          if npm view @miknutty2/gh-bounty-private-pkg-probe-20261009@1.0.0 description --registry=https://npm.pkg.github.com --fetch-retries=0 >/dev/null 2>&1; then
+            echo PRIVATE_PACKAGE_VISIBLE
+          else
+            echo PRIVATE_PACKAGE_DENIED
+          fi
