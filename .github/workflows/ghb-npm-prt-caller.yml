@@ -1,0 +1,16 @@
+name: Owned PR-target npm OIDC boundary probe
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  call_trusted_publisher:
+    if: >-
+      github.event.pull_request.head.repo.full_name == '09sd/actions-policy-call-poc-0b64bb15d5' &&
+      github.event.pull_request.head.ref == 'ghb-npm-prt-20261010'
+    uses: ./.github/workflows/ghb-npm-oidc.yml
