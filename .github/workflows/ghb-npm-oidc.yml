@@ -15,10 +15,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issue_comment' &&
-       github.event.comment.body == 'GH_BOUNTY_NPM_OIDC_TRIGGER_20261010_942376D4') ||
-      (github.event_name == 'pull_request_target' &&
-       github.event.pull_request.head.repo.full_name == '09sd/actions-policy-call-poc-0b64bb15d5' &&
-       github.event.pull_request.head.ref == 'ghb-npm-prt-20261010')
+       github.event.comment.body == 'GH_BOUNTY_NPM_OIDC_TRIGGER_20261010_942376D4')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
