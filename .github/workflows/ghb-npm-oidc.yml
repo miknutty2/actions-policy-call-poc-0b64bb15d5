@@ -2,6 +2,7 @@ name: Harmless npm OIDC event-boundary test
 
 on:
   workflow_dispatch:
+  workflow_call:
   issue_comment:
     types: [created]
 
@@ -18,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          repository: miknutty2/actions-policy-call-poc-0b64bb15d5
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22.14.0'
