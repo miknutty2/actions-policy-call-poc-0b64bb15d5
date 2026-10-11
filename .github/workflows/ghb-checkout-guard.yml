@@ -1,0 +1,20 @@
+name: GHB checkout guard marker
+on:
+  pull_request_target:
+    types: [opened, edited, reopened]
+permissions:
+  contents: read
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+      - name: Observe only; do not execute PR code
+        run: |
+          if test -f GHB_FORK_MARKER.txt; then
+            echo "GHB_FORK_MARKER_PRESENT"
+          else
+            echo "GHB_FORK_MARKER_ABSENT"
+          fi
