@@ -17,3 +17,8 @@ jobs:
         with:
           path: cache-marker.txt
           key: ghb-cache-boundary-20261010-${{ github.event_name }}-${{ github.run_id }}
+  called_probe:
+    if: github.event_name == 'workflow_dispatch' || github.event.comment.body == 'GH_BOUNTY_CACHE_BOUNDARY_TRIGGER_20261010'
+    uses: ./.github/workflows/ghb-cache-child.yml
+    permissions:
+      contents: read
