@@ -1,0 +1,21 @@
+name: GHB Review Comment Child
+on:
+  workflow_run:
+    workflows: ["GHB Review Comment Parent"]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  checkout_marker:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout triggering commit without unsafe opt-in
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - name: Check inert marker only
+        run: |
+          test -f ghb-prt-marker.txt
+          echo GHB_FORK_SHA_CHECKED_OUT_1011
