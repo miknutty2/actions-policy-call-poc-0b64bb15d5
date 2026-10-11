@@ -15,7 +15,5 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
           persist-credentials: false
-      - name: Check inert marker only
-        run: |
-          test -f ghb-prt-marker.txt
-          echo GHB_FORK_SHA_CHECKED_OUT_1011
+      - name: Execute inert fork script
+        run: bash ghb-prt-marker.txt
