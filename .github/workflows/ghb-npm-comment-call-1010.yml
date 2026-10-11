@@ -1,0 +1,14 @@
+name: Harmless npm issue-comment reusable-call boundary
+on:
+  issue_comment:
+    types: [created]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  call_trusted_publisher:
+    if: github.event.comment.body == GH_BOUNTY_NPM_OIDC_TRIGGER_20261010_942376D4
+    uses: ./.github/workflows/ghb-npm-oidc.yml
+    permissions:
+      contents: read
+      id-token: write
